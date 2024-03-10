@@ -25,7 +25,7 @@ pipeline {
         // Step 4
         stage('Push docker image') {
                 steps {
-                    withCredentials{
+                    withCredentials {
                     sh "sudo docker login -u hemkumar123 -p Ajith&%#1998"
                     }
                     sh "sudo docker push tomcat:9.0:${BUILD_NUMBER}"
