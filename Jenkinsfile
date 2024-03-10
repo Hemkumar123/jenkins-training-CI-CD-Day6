@@ -24,13 +24,13 @@ pipeline {
         
         // Step 4
         stage('Push docker image') {
-                steps {
-                    withCredentials {
-                    sh "sudo docker login -u hemkumar123 -p Ajith&%#1998"
-                    }
-                    sh "sudo docker push tomcat:9.0:${BUILD_NUMBER}"
-                }
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+            sh "sudo docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+            sh "sudo docker push tomcat:9.0:${BUILD_NUMBER}"
         }
+    }
+}
         
         // Step 5 
         stage('Deploy Java App in  Dev Env') {
